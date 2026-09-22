@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 class Post {
+  private ?int $id;
   private string $title;
   private string $content;
   private DateTimeImmutable $timestamp_created;
@@ -11,6 +12,7 @@ class Post {
   private string $category;
 
   public function __construct(string $title, string $content, string $cover, string $category) {
+    $this->id = null;
     $this->setTitle($title);
     $this->setContent($content);
     $this->timestamp_created = new DateTimeImmutable();
@@ -18,6 +20,32 @@ class Post {
     $this->setCover($cover);
     $this->setCategory($category);
     $this->setSlug($this->title);
+  }
+
+  public static function fromDatabase(array $data) : self {
+    $post = new self($data['title'], $data['content'], $data['cover'], $data['category']);
+
+    $post->timestamp_created = new DateTimeImmutable($data['timestamp_created']);
+    
+    if (!empty($data['timestamp_updated'])) {
+      $post->timestamp_updated = new DateTimeImmutable($data['timestamp_updated']);
+    }
+
+    if (!empty($data['slug'])) {
+      $post->slug = $data['slug'];
+    }
+
+    $post->setId($data['id']);
+
+    return $post;
+  }
+
+  public function getId() : ?int {
+    return $this->id;
+  }
+
+  public function setId(int $id) : void {
+    $this->id = $id;
   }
 
   public function getTitle() : string {

@@ -71,7 +71,7 @@ class Database {
 
   public function setPort(int $port): void {
     if ($port <= 0 || $port > 65535) {
-      throw new Exception("La porta del database non è valida (deve essere compresa tra 1 e 65535).");
+      throw new Exception("La porta del database non è valida.");
     }
     $this->port = $port;
   }
