@@ -1,0 +1,96 @@
+@font-face {
+  font-family: 'Open_Sans';
+  src: url("../Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@layer variables {
+  :root {
+    --white: #f0f0f0;
+    --black: #020202;
+    --blue: #1717de;
+  }
+}
+
+@layer bases {
+  *, *::after, *::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--white);
+    font-family: 'Open_Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, li, a, span, label {
+    text-decoration: none;
+    color: var(--black);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  .content {
+    width: min(1024px, 95%);
+    margin: auto;
+  }
+  
+  .spacer {
+    padding: 140px 0;
+  }
+}
+
+@layer header {
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(1200px, 95%);
+    height: 96px;
+  }
+
+  .site__header {
+    & img {
+      height: 60px;
+    }
+  }
+
+  .menu__header {
+    & li {
+      display: inline-block;
+      margin: 0 2px;
+    }
+
+    & a {
+      font-size: 14px;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 4px 8px;
+
+      &:hover {
+        color: var(--blue);
+        transition: color 0.24s ease-in-out;
+      }
+    }
+  }
+}
