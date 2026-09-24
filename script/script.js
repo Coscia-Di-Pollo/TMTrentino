@@ -39,3 +39,20 @@ const searchInput = document.getElementById('search');
 searchInput.addEventListener('focus', () => {
   searchHeader.classList.add('is_active'); 
 });
+
+document.addEventListener('click', (event) => {
+  // Se il click NON è dentro searchHeader, rimuoviamo la classe
+  if (!searchHeader.contains(event.target)) {
+    searchHeader.classList.remove('is_active');
+    closeOptionTable();
+  }
+});
+
+// 3. Chiudi se l'utente preme il tasto ESC sulla tastiera
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    searchHeader.classList.remove('is_active');
+    searchInput.blur();
+    closeOptionTable();
+  }
+});

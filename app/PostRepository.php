@@ -13,15 +13,25 @@ class PostRepository {
     return $this->db;
   }
 
-  public function getAllCategories() : array {
+  private function getAll(string $column) : array {
+    $this->checkColumns($column);
+
     $dbh = $this->databaseConnection();
 
-    $sql = "SELECT DISTINCT category FROM posts WHERE category IS NOT NULL AND category != '' ORDER BY category ASC";
+    $sql = "SELECT DISTINCT {$column} FROM posts WHERE {$column} IS NOT NULL ORDER BY {$column} ASC";
     
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_COLUMN);
+  }
+
+  public function getAllCategories() : array {
+    return $this->getAll("category");
+  }
+
+  public function getAllTimestamps_created() : array {
+    return $this->getAll("timestamp_created");
   }
 
   private function databaseConnection() : PDO {
@@ -131,6 +141,11 @@ class PostRepository {
   public function selectByTimestamp_created(DateTimeImmutable $date) : array {
     $date = $date->format('Y-m-d H:i:s');
     return $this->selectBy("timestamp_created", $date);
+  }
+
+  public function selectFromTimestamp_created(DateTimeImmutable $date) : array {
+    $date = $date->format('Y-m-d H:i:s');
+    return $this->selectBy("timestamp_created", $date, ">=");
   }
 
   private function selectOrderBy(string $column, string $order = '') : array {
