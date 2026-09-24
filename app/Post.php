@@ -18,8 +18,8 @@ class Post {
     $this->timestamp_created = new DateTimeImmutable();
     $this->timestamp_updated = null;
     $this->setCover($cover);
-    $this->setCategory($category);
     $this->setSlug($this->title);
+    $this->setCategory($category);
   }
 
   public static function fromDatabase(array $data) : self {

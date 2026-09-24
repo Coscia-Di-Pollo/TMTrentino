@@ -13,6 +13,17 @@ class PostRepository {
     return $this->db;
   }
 
+  public function getAllCategories() : array {
+    $dbh = $this->databaseConnection();
+
+    $sql = "SELECT DISTINCT category FROM posts WHERE category IS NOT NULL AND category != '' ORDER BY category ASC";
+    
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+  }
+
   private function databaseConnection() : PDO {
     return $this->db->connect();
   }
@@ -78,18 +89,22 @@ class PostRepository {
     return $this->deleteBy("timestamp_created", $date);
   }
 
-  private function selectBy(string $column, mixed $value) : array {
+  private function selectBy(string $column, mixed $value, string $operator = "=") : array {
     $this->checkColumns($column);
 
     $posts = [];
 
     $dbh = $this->databaseConnection();
 
-    $sql = "SELECT * FROM posts WHERE {$column} = :value";
+    if(strtoupper($operator) === "LIKE") {
+      $value = "%" . $value . "%";
+    }
+
+    $sql = "SELECT * FROM posts WHERE {$column} {$operator} :value";
 
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
-      ":value" => $value
+      ":value" => $value,
     ]);
 
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -105,8 +120,8 @@ class PostRepository {
     return $this->selectBy("id", $id)[0] ?? null;
   }
 
-  public function selectByTitle(string $title) : ?Post {
-    return $this->selectBy("title", $title)[0] ?? null;
+  public function selectByTitle(string $title) : array {
+    return $this->selectBy("title", $title, "LIKE");
   }
 
   public function selectByCategory(string $category) : array {
