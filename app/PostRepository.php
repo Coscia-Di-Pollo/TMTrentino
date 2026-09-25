@@ -13,12 +13,14 @@ class PostRepository {
     return $this->db;
   }
 
-  private function getAll(string $column) : array {
+  private function getAll(string $column, string $order = "") : array {
     $this->checkColumns($column);
 
     $dbh = $this->databaseConnection();
 
-    $sql = "SELECT DISTINCT {$column} FROM posts WHERE {$column} IS NOT NULL ORDER BY {$column} ASC";
+    $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC';
+
+    $sql = "SELECT DISTINCT {$column} FROM posts WHERE {$column} IS NOT NULL ORDER BY {$column} {$order}";
     
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
@@ -31,7 +33,7 @@ class PostRepository {
   }
 
   public function getAllTimestamps_created() : array {
-    return $this->getAll("timestamp_created");
+    return $this->getAll("timestamp_created", "desc");
   }
 
   private function databaseConnection() : PDO {
@@ -221,6 +223,17 @@ class PostRepository {
       ":slug" => $post->getSlug(),
       ":category" => $post->getCategory()
     ]);
+  }
+
+  public function latestPosts(int $limit) : array {
+    $dbh = $this->databaseConnection();
+
+    $sql = "SELECT title, cover FROM posts ORDER BY timestamp_created DESC LIMIT {$limit}";
+
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
 

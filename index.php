@@ -133,7 +133,16 @@ $postRepository = new PostRepository($db);
         </form>
       </div>
     </div>
-
   </header>
+
+  <main>
+    <section id="anteprima">
+      <div class="content"><figure><img src="media/image.png" alt=""></figure></div>
+    </section>
+
+    <section class="spacer">
+      <div class="content border-top"></div>
+    </section>
+  </main>
 </body>
 </html>

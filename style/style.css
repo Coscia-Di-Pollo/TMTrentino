@@ -45,18 +45,22 @@
   }
 
   .content {
-    width: min(1024px, 95%);
+    width: min(1200px, 95%);
     margin: auto;
   }
   
   .spacer {
-    padding: 140px 0;
+    padding: 105px 0;
+  }
+
+  .border-top {
+    border-top: 3px solid #d3d0d0;
   }
 }
 
 @layer header {
   header {
-    position: fixed;
+    position: sticky;
     top: 0;
     width: 100%;
   }
@@ -182,7 +186,6 @@
       overflow-y: auto;
       overflow-x: hidden;
       background-color: white;
-      box-shadow: 0 0 10px #fef7fe;
       width: 100%;
 
       &::-webkit-scrollbar {
@@ -247,6 +250,15 @@
     & i {
       font-size: 20px;
       color: var(--black);
+    }
+  }
+}
+
+@layer anteprima {
+  #anteprima {
+    padding: 120px 0 0 0;
+    & img {
+      width: 100%;
     }
   }
 }
