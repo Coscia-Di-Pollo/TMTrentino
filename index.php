@@ -150,6 +150,7 @@ $latestPost = $postRepository->latestPosts(3);
     <section class="spacer" id="latest_news">
       <div class="content__latest_news">
         <h2> Aggiornati ora con le ultime notizie</h2>
+        <p>Ultime notizie: scambi, risultati, infortuni e molto altro</p>
         <div class="block__posts__latest_news">
           <?php foreach ($latestPost as $post): ?>
             <div class="post__latest_news">

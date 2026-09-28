@@ -334,7 +334,11 @@
       font-size: 32px;
       text-transform: uppercase;
       font-weight: 900;
-      
+    }
+
+    & p {
+      font-size: 20px;
+      letter-spacing: 2px;
     }
   }
   .block__posts__latest_news {

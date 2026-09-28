@@ -9,9 +9,9 @@ class PostRepository {
     $this->db = $db;
   }
 
-  public function getDb() : Database {
-    return $this->db;
-  }
+  // public function getDb() : Database {
+  //   return $this->db;
+  // }
 
   private function getAll(string $column, string $order = "") : array {
     $this->checkColumns($column);
