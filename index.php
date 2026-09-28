@@ -45,6 +45,8 @@ $postRepository = new PostRepository($db);
 //     $postRepository->save($post);
 // }
 
+
+$latestPost = $postRepository->latestPosts(3);
 ?>
 
 
@@ -95,7 +97,7 @@ $postRepository = new PostRepository($db);
         </div>
       </nav>
       
-      <div class="search__header">
+      <!-- <div class="search__header">
         <form action="app/search.php" method="get" class="form__search__header">
           <input type="text" name="search" id="search" placeholder="Scrivi qui la tua ricerca!" required>
           <div class="hidden">
@@ -131,18 +133,38 @@ $postRepository = new PostRepository($db);
           
           <button type="submit" aria-label="Cerca"><i class="fas fa-search"></i></button>
         </form>
-      </div>
+      </div> -->
     </div>
   </header>
 
   <main>
-    <section id="anteprima">
-      <div class="content"><figure><img src="media/image.png" alt=""></figure></div>
+    <div class="hero">
+      <div class="content__hero">
+        <h1>TM Trentino: Ultime notizie, interviste e risultati dal campo</h1>
+        <figure><img src="media/image.png" alt=""></figure>
+      </div>
+    </div>
+    
+    <div class="separator content"></div>
+
+    <section class="spacer" id="latest_news">
+      <div class="content__latest_news">
+        <h2> Aggiornati ora con le ultime notizie</h2>
+        <div class="block__posts__latest_news">
+          <?php foreach ($latestPost as $post): ?>
+            <div class="post__latest_news">
+              <div class="post__content__latest_news"><p><?php echo htmlspecialchars($post['title']);?></p></div>
+              <a href=""><figure><img src="cover/<?php echo htmlspecialchars($post['cover']); ?>" alt=""></figure></a>
+            </div>
+          <?php endforeach;?>
+        </div>
+        <a href="" class="cta"> Guarda tutte le notizie </a>
+      </div>
     </section>
 
-    <section class="spacer">
-      <div class="content border-top"></div>
-    </section>
+    <div class="separator content"></div>
+
+    <section class="spacer" id="aboutUs"></section>
   </main>
 </body>
 </html>

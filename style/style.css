@@ -9,7 +9,18 @@
   :root {
     --white: #f0f0f0;
     --black: #020202;
-    --blue: #1717de;
+
+    --yellow: #f4d03f;
+    --yellow-dark: #d4ac0d;
+    
+    --blue: #0f2c59;
+    --blue-light: #1b498a;
+
+    --green: #2ecc71;
+    --green-dark: #27ae60;
+    
+    --gray-light: #e9ecef;
+    --gray-dark: #343a40;
   }
 }
 
@@ -45,7 +56,7 @@
   }
 
   .content {
-    width: min(1200px, 95%);
+    width: min(1440px, 95%);
     margin: auto;
   }
   
@@ -53,16 +64,56 @@
     padding: 105px 0;
   }
 
-  .border-top {
-    border-top: 3px solid #d3d0d0;
+  .separator {
+    border: 1px solid #d3d0d0;
+  }
+}
+
+@layer cta {
+  .cta {
+    display: inline-block;
+    position: relative;
+    font-size: 18px;
+    text-transform: capitalize;
+    border: 2px solid var(--green-dark);
+    color: var(--black);
+    font-weight: 700;
+    padding: 14px 20px;
+    border-radius: 32px;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.54s linear;
+
+    &:hover::after {
+      width: 100%;
+      transition: width 0.54s ease-in;
+      background-color: var(--green-dark);
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      
+    }
+  }
+
+  .cta::after {
+    content: "";
+    width: 20%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 32px;
+    z-index: -1;
+    
   }
 }
 
 @layer header {
   header {
     position: sticky;
-    top: 0;
     width: 100%;
+    background-color: var(--white);
   }
 
   .header {
@@ -84,16 +135,10 @@
         padding: 2px 6px;
 
         &:hover {
-          color: var(--blue);
+          color: var(--blue-light);
           transition: color 0.24s ease-in-out;
         }
       }
-    }
-  }
-
-  .site__header {
-    & img {
-      height: 60px;
     }
   }
 
@@ -104,8 +149,9 @@
     }
   }
 
-  .search__header {
+  /* .search__header {
     position: relative;
+    margin-top: 30px;
 
     & input[name="search"] {
       width: 100%;
@@ -189,20 +235,20 @@
       width: 100%;
 
       &::-webkit-scrollbar {
-        width: 2px; /* Larghezza della barra */
+        width: 2px;  Larghezza della barra 
       }
 
       &::-webkit-scrollbar-track {
-        background: #f1f1f1; /* Colore dello sfondo della traccia */
+        background: #f1f1f1;  Colore dello sfondo della traccia 
       }
 
       &::-webkit-scrollbar-thumb {
-        background: var(--red); /* Colore della parte scorrevole (nera) */
-        border-radius: 0; /* Arrotondamento per renderla esteticamente meglio */
+        background: var(--red);  Colore della parte scorrevole (nera) 
+        border-radius: 0;  Arrotondamento per renderla esteticamente meglio 
       }
 
       &::-webkit-scrollbar-thumb:hover {
-        background: #333333; /* Colore leggermente più chiaro al passaggio del mouse */
+        background: #333333;  Colore leggermente più chiaro al passaggio del mouse 
       }
 
       & .option {
@@ -251,14 +297,68 @@
       font-size: 20px;
       color: var(--black);
     }
+  } */
+}
+
+@layer hero {
+  .hero {
+    padding: 70px 0;
+  }
+
+  .content__hero {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 48px;
+
+    & figure img{
+      width: 500px;
+      margin: 0 auto;
+      aspect-ratio: 1 / 1;
+    }
+  }
+
+  h1 {
+    font-size: 64px;
+    text-transform: uppercase;
+    max-width: 1200px;
   }
 }
 
-@layer anteprima {
-  #anteprima {
-    padding: 120px 0 0 0;
-    & img {
-      width: 100%;
+@layer latest_news {
+  #latest_news {
+    text-align: center;
+
+    & h2 {
+      font-size: 32px;
+      text-transform: uppercase;
+      font-weight: 900;
+      
     }
+  }
+  .block__posts__latest_news {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    margin: 32px 0;
+  }
+
+  .post__latest_news {
+    & figure {
+      width: 100%;
+      height: 500px;
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.6);
+      }
+    }
+  }
+
+  .post__content__latest_news {
+    display: none;
   }
 }
